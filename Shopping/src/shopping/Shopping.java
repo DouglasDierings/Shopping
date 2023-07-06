@@ -4,11 +4,10 @@ import ioutils.IOUtils;
 
 /**
  * This is the my "store". If I add a new item to my store I do not need to make
- * any changes here. I try to put the function to remove the item but I could
- * not find a way on time to submit the CA to discount the price of the product
- * that was removed.
+ * any changes here. The user can add, remove and see the bag. It use MySQL to
+ * manage the stock control.
  *
- * @author Douglas Vinicius Dierings 2022322
+ * @author Douglas Vinicius Dierings
  */
 public class Shopping {
 
@@ -21,7 +20,7 @@ public class Shopping {
         IOUtils input = new IOUtils();
         ShoppingList shoppingList = new ShoppingList();
         ShoppingBag myBag = new ShoppingBag();
-        int quantity;//Stores the quantity selected
+        int selectedQuantity;//Stores the quantity selected
         //Determine the option number for each extra option avaliable in the store. This is use so every time I add a new item in the list I do not need to make any changes
         int seeBagOption = shoppingList.getListSize() + 1;
         int removeItemOption = shoppingList.getListSize() + 2;
@@ -47,17 +46,17 @@ public class Shopping {
                 }
             } else if (shoppingList.getSelectedNumber() == removeItemOption) {//Check if the user selected the option to remove one item
                 System.out.printf("Products in your bag:\n" + myBag.getBag() + "Total to pay is %.2f EUR\n", myBag.getTotalToPay());//Display the items in the shopping bag and the amount to be pay so far
-                shoppingList.setSelectedNumber(input.getUserInt("Enter the number of the respective item you want to remove or " + (myBag.getBagSize()+1) + " to cancel the operation ", 1, myBag.getBagSize()+1));//Get the user input, witch item should be removing
-                if (shoppingList.getSelectedNumber() == myBag.getBagSize()+1) {//Chec if the user want to cancel the operation
+                shoppingList.setSelectedNumber(input.getUserInt("Enter the number of the respective item you want to remove or " + (myBag.getBagSize() + 1) + " to cancel the operation ", 1, myBag.getBagSize() + 1));//Get the user input, witch item should be removing
+                if (shoppingList.getSelectedNumber() == myBag.getBagSize() + 1) {//Chec if the user want to cancel the operation
                     continue;//Continues the program
-                }else{
+                } else {
                     myBag.removeItem(shoppingList.getSelectedNumber());//Call the method to remove the item selected
                 }
             } else if (shoppingList.getSelectedNumber() <= shoppingList.getListSize()) {//If the user input is less than the size of the shooping list. It means that he selected one item and not the others extra options
                 myBag.setId(shoppingList.getSelectedNumber());
-                quantity = input.getUserInt("Enter the quantity: ", 1, myBag.getMaximumItems() - myBag.getBagSize());//Get the quantity from the user
-                myBag.setItemsQuantity(quantity);
-                myBag.buyItem(shoppingList.selectItem());//OTIMIZAR
+                selectedQuantity = input.getUserInt("Enter the quantity: ", 1, myBag.getMaximumItems() - myBag.getBagSize());//Get the quantity from the user
+                myBag.setItemsQuantity(selectedQuantity);//Set the quantity the user wants to buy in the class myBag
+                myBag.buyItem(shoppingList.selectItem());//Add the item to the bag (array and update the stock SQL)
                 System.out.println("Item added to the bag!");//Confirms that the item was add to the bag
                 System.out.println("---------------------------------------");
             }
