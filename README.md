@@ -4,4 +4,4 @@
  # To Do
 
 - [x] Create a stock control
-- [ x ] Create a database connection with MySQL to control the stock
+- [x] Create a database connection with MySQL to control the stock
