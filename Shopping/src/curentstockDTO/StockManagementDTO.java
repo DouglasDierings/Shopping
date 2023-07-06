@@ -7,7 +7,7 @@ package curentstockDTO;
 /**
  * Data Transfer Object (DTO) for representing quantity stock information.
  */
-public class QuantitystockDTO {
+public class StockManagementDTO {
 
     private int currentStock; // Current stock quantity
     private int quantity; // Quantity to be updated

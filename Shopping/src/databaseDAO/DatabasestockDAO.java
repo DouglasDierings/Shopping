@@ -2,7 +2,7 @@ package databaseDAO;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import curentstockDTO.QuantitystockDTO;
+import curentstockDTO.StockManagementDTO;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.util.logging.Level;
@@ -21,7 +21,7 @@ public class DatabasestockDAO {
         }
     }
 
-    public ResultSet getStock(QuantitystockDTO objcurentstockdto) {
+    public ResultSet getStock(StockManagementDTO objcurentstockdto) {
         try {
             String sqlCommand = "select * from products_stock where id = ?";
             PreparedStatement pstm = conn.prepareStatement(sqlCommand);
@@ -39,7 +39,7 @@ public class DatabasestockDAO {
         return rs;
     }
 
-    public void getItemFromStock(QuantitystockDTO objcurentstockdto) {
+    public void getItemFromStock(StockManagementDTO objcurentstockdto) {
         try {
             String sqlCommand = "update products_stock set stock_quantity = ? where id = ?";
             PreparedStatement pstm = conn.prepareStatement(sqlCommand);
@@ -53,7 +53,7 @@ public class DatabasestockDAO {
         }
     }
 
-    public void returnItemToStock(QuantitystockDTO objcurentstockdto) {
+    public void returnItemToStock(StockManagementDTO objcurentstockdto) {
         try {
             String sqlCommand = "update products_stock set stock_quantity = ? where id = ?";
             PreparedStatement pstm = conn.prepareStatement(sqlCommand);

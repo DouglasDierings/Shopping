@@ -5,9 +5,8 @@
  */
 package shopping;
 
-import curentstockDTO.QuantitystockDTO;
+import curentstockDTO.StockManagementDTO;
 import databaseDAO.DatabasestockDAO;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import productlist.*;
 
@@ -29,7 +28,7 @@ import productlist.*;
 public class ShoppingBag {
 
     private ArrayList<Electronic> items;//Create and arryList with the tipy Electronic
-    QuantitystockDTO stock = new QuantitystockDTO();
+    StockManagementDTO stock = new StockManagementDTO();
     DatabasestockDAO stockDAO = new DatabasestockDAO();
     private final int maximumItems = 10;//Add a maximun item to buy
     private int quantityInTheBag = 0;//Stores the quantity in the bag
