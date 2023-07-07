@@ -10,20 +10,27 @@ import java.util.logging.Logger;
 
 public class DatabasestockDAO {
 
-    private Connection conn;
-    private ResultSet rs;
+    private Connection conn; // Connection object for database connection
+    private ResultSet rs; // ResultSet object for storing query results
 
     public DatabasestockDAO() {
         try {
-            conn = new ConectionDAO().connectToDB();
+            conn = new ConectionDAO().connectToDB(); // Establishes a connection to the database
         } catch (SQLException ex) {
             Logger.getLogger(DatabasestockDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    /**
+     * Retrieves the stock information for a specific item from the database
+     *
+     * @param objcurentstockdto the stock management DTO object containing the
+     * item ID
+     * @return the result set containing the stock information
+     */
     public ResultSet getStock(StockManagementDTO objcurentstockdto) {
         try {
-            String sqlCommand = "select * from products_stock where id = ?";
+            String sqlCommand = "SELECT * FROM products_stock WHERE id = ?";
             PreparedStatement pstm = conn.prepareStatement(sqlCommand);
             int id = objcurentstockdto.getIdItem();
             pstm.setInt(1, id);
@@ -39,9 +46,15 @@ public class DatabasestockDAO {
         return rs;
     }
 
+    /**
+     * Updates the stock quantity of an item in the database
+     *
+     * @param objcurentstockdto the stock management DTO object containing the
+     * item information
+     */
     public void getItemFromStock(StockManagementDTO objcurentstockdto) {
         try {
-            String sqlCommand = "update products_stock set stock_quantity = ? where id = ?";
+            String sqlCommand = "UPDATE products_stock SET stock_quantity = ? WHERE id = ?";
             PreparedStatement pstm = conn.prepareStatement(sqlCommand);
             int quantity = objcurentstockdto.getCurrentStock() - objcurentstockdto.getQuantity();
             pstm.setInt(1, quantity);
@@ -53,9 +66,16 @@ public class DatabasestockDAO {
         }
     }
 
+    /**
+     * Returns an item to the stock by updating the stock quantity in the
+     * database
+     *
+     * @param objcurentstockdto the stock management DTO object containing the
+     * item information
+     */
     public void returnItemToStock(StockManagementDTO objcurentstockdto) {
         try {
-            String sqlCommand = "update products_stock set stock_quantity = ? where id = ?";
+            String sqlCommand = "UPDATE products_stock SET stock_quantity = ? WHERE id = ?";
             PreparedStatement pstm = conn.prepareStatement(sqlCommand);
             this.getStock(objcurentstockdto);
             int quantity = objcurentstockdto.getCurrentStock() + 1;
@@ -68,6 +88,9 @@ public class DatabasestockDAO {
         }
     }
 
+    /**
+     * Closes the database connection
+     */
     public void closeConnection() {
         try {
             conn.close();

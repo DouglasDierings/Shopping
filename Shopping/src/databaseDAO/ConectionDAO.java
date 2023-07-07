@@ -12,7 +12,7 @@ public class ConectionDAO {
 
     /**
      * Establishes a connection to the database
-     * 
+     *
      * @return the connection object
      * @throws SQLException if a database access error occurs
      */

@@ -67,4 +67,3 @@ public class StockManagementDTO {
         this.idItem = idItem;
     }
 }
-

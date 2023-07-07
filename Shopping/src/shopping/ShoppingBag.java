@@ -19,9 +19,6 @@ import productlist.*;
  *
  * You should NOT need to amend this code at all!
  *
- * NOTE: 'Object' is the main base class for everything in Java. This means that
- * everything 'is an' Object ANy class you create will work with the shipping
- * bag - you don't need to change this code!
  *
  * @author Ken (Edit by Douglas Vinicius Dierings 2022322)
  */
