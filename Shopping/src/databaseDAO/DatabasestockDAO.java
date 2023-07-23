@@ -31,15 +31,15 @@ public class DatabasestockDAO {
     public ResultSet getStock(StockManagementDTO objcurentstockdto) {
         try {
             String sqlCommand = "SELECT * FROM products_stock WHERE id = ?";
-            PreparedStatement pstm = conn.prepareStatement(sqlCommand);
-            int id = objcurentstockdto.getIdItem();
-            pstm.setInt(1, id);
-            rs = pstm.executeQuery();
-            while (rs.next()) {
-                int stock = rs.getInt("stock_quantity");
-                objcurentstockdto.setCurrentStock(stock);
+            try (PreparedStatement pstm = conn.prepareStatement(sqlCommand)) {
+                int id = objcurentstockdto.getIdItem();
+                pstm.setInt(1, id);
+                rs = pstm.executeQuery();
+                while (rs.next()) {
+                    int stock = rs.getInt("stock_quantity");
+                    objcurentstockdto.setCurrentStock(stock);
+                }
             }
-            pstm.close();
         } catch (SQLException error) {
             System.out.println("quantitystockDTO " + error);
         }
@@ -55,12 +55,12 @@ public class DatabasestockDAO {
     public void getItemFromStock(StockManagementDTO objcurentstockdto) {
         try {
             String sqlCommand = "UPDATE products_stock SET stock_quantity = ? WHERE id = ?";
-            PreparedStatement pstm = conn.prepareStatement(sqlCommand);
-            int quantity = objcurentstockdto.getCurrentStock() - objcurentstockdto.getQuantity();
-            pstm.setInt(1, quantity);
-            pstm.setInt(2, objcurentstockdto.getIdItem());
-            pstm.execute();
-            pstm.close();
+            try (PreparedStatement pstm = conn.prepareStatement(sqlCommand)) {
+                int quantity = objcurentstockdto.getCurrentStock() - objcurentstockdto.getQuantity();
+                pstm.setInt(1, quantity);
+                pstm.setInt(2, objcurentstockdto.getIdItem());
+                pstm.execute();
+            }
         } catch (SQLException error) {
             System.out.println("quantitystockDTO " + error);
         }
@@ -76,13 +76,13 @@ public class DatabasestockDAO {
     public void returnItemToStock(StockManagementDTO objcurentstockdto) {
         try {
             String sqlCommand = "UPDATE products_stock SET stock_quantity = ? WHERE id = ?";
-            PreparedStatement pstm = conn.prepareStatement(sqlCommand);
-            this.getStock(objcurentstockdto);
-            int quantity = objcurentstockdto.getCurrentStock() + 1;
-            pstm.setInt(1, quantity);
-            pstm.setInt(2, objcurentstockdto.getIdItem());
-            pstm.execute();
-            pstm.close();
+            try (PreparedStatement pstm = conn.prepareStatement(sqlCommand)) {
+                this.getStock(objcurentstockdto);
+                int quantity = objcurentstockdto.getCurrentStock() + 1;
+                pstm.setInt(1, quantity);
+                pstm.setInt(2, objcurentstockdto.getIdItem());
+                pstm.execute();
+            }
         } catch (SQLException error) {
             System.out.println("quantitystockDTO " + error);
         }

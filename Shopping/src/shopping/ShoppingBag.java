@@ -87,7 +87,6 @@ public class ShoppingBag {
             itemNumber++;
         }
 
-        //this.items.clear(); I removed this because when I call the method in the middle of the code (main) to show the current items in the bag it was cleaning the bag
         return itemList;
     }
 
