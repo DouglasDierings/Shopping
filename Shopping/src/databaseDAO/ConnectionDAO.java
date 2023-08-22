@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConectionDAO {
+public class ConnectionDAO {
 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/store"; // Database URL
     private static final String DB_USER = "root"; // Database username

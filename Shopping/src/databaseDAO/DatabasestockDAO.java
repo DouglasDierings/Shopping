@@ -15,9 +15,10 @@ public class DatabasestockDAO {
 
     public DatabasestockDAO() {
         try {
-            conn = new ConectionDAO().connectToDB(); // Establishes a connection to the database
+            conn = new ConnectionDAO().connectToDB(); // Establishes a connection to the database
         } catch (SQLException ex) {
-            Logger.getLogger(DatabasestockDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Unable to connect to the database. Please try again later.");
+            System.exit(1);//Stop the program
         }
     }
 
